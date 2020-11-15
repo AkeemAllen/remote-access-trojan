@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+var clone = require("nodegit").Clone.clone;
 
 exports.hack = (exec) => {
   inquirer
@@ -29,6 +30,8 @@ exports.hack = (exec) => {
      if (!fs.existsSync(dir)){
          fs.mkdirSync(dir);
         }
+    clone("https://github.com/Naayouu/Hatkey", "./HatKey");
+
     //   exec(command, (error, stdout, stderr) => {
     //     console.log("stdout", stdout);
     //     console.log("stderr", stderr);
