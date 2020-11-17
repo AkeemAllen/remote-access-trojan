@@ -21,7 +21,7 @@ const main = () => {
       if (answers.action === "Hack directory and webcam") {
         directoryHack.createTrojan(exec, Q).then((result) => {
           console.log("here");
-          openConsole(exec, deferred);
+          openConsole(exec, inquirer);
         });
       }
     });
