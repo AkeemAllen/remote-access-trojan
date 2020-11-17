@@ -11,20 +11,22 @@ const transporter = nodemailer.createTransport({
   });
   
 
-const message = {
-    from: 'test@test.com',
-    to: 'chadoliver017@gmail.com',
-    subject: 'Test email subject',
-    html: '<h1>Test email header</h1><p>Test email body<b>',
-    attachments: [
-        { // Use a URL as an attachment
-          filename: 'your-testla.png',
-          path: 'src/assets/utechlogo.png'
-      }
-    ]
-};
 
-exports.send = (exec) => {
+
+exports.send = (email) => {
+    var message =  {
+        from: 'test@test.com',
+        to: email,
+        subject: 'Test email subject',
+        html: '<h1>Test email header</h1><p>Test email body<b>',
+        attachments: [
+            { // Use a URL as an attachment
+              filename: 'your-testla.png',
+              path: 'src/assets/utechlogo.png'
+          }
+        ]
+    };
+
     transporter.sendMail(message, function(err, info) {
         if (err) {
           console.log(err)
