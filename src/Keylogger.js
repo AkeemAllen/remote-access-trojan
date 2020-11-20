@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 var clone = require("nodegit").Clone.clone;
-const { PythonShell } = require("python-shell");
 
 exports.hack = (exec) => {
   var fs = require("fs");
