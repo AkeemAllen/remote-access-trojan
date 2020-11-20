@@ -29,7 +29,7 @@ exports.emailPrompt = (address) => {
         attachments: [
           {
             filename: "your-testla.png",
-            path: "src/assets/utechlogo.png",
+            path: "src/assets/UtechImage.jpeg",
           },
         ],
       };
