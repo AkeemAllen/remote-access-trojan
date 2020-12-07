@@ -4,7 +4,7 @@ const directoryHack = require("./Directory_Hack");
 const keyLogger = require("./Keylogger");
 const emailService = require("./helpers/Email_Service");
 const Q = require("q");
-const { getIp } = require("./helpers/Grab_Ip_Address");
+const { getIp } = require("./helpers/Get_Ip_Address");
 const deferred = Q.defer();
 const { emailPrompt } = require("./helpers/Email_Service");
 
