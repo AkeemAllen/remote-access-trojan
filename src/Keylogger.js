@@ -2,9 +2,10 @@ const inquirer = require("inquirer");
 var clone = require("nodegit").Clone.clone;
 const { PythonShell } = require("python-shell");
 
-exports.hack = (exec) => {
+exports.hack = (exec, Q) => {
   var fs = require("fs");
   var dir = "./HatKey";
+  var deferred = Q.defer();
 
   if (!fs.existsSync(dir)) {
     //make the 'HatKey' folder
@@ -12,13 +13,13 @@ exports.hack = (exec) => {
     clone("https://github.com/Naayouu/Hatkey", "./HatKey"); //clone repo to hatkey folder
   }
 
-  const command = "cd ./HatKey && python HatKey.py"; //open HatKey folder and run HatKey python script
+  const command = `python ./HatKey/HatKey.py`; //open HatKey folder and run HatKey python script
 
   exec(command, (error, stdout, stderr) => {
-    console.log("stdout", stdout);
-    console.log("stderr", stderr);
-    if (error !== null) {
-      console.log(error);
-    }
+    return error
+      ? deferred.reject(stderr + new Error(error.stack || error))
+      : deferred.resolve(stdout);
   });
+
+  return deferred.promise;
 };
